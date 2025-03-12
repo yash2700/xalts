@@ -69,6 +69,9 @@ This project implements a multi-user task approval system with authentication, t
 
 ---
 
+## Standard Testcases
+## Exception Handling
+
 ## 🛠️ **Setup & Installation**
 ### **Prerequisites**
 - Java 17+
