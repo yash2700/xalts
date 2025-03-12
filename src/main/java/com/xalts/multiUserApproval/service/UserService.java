@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -58,7 +59,7 @@ public class UserService {
     if (CollectionUtils.isEmpty(users)) {
       return Collections.emptyList();
     }
-    return users.stream().map(this::getUserWithApprovedTasks).toList();
+    return users.stream().map(this::getUserWithApprovedTasks).collect(Collectors.toList());
   }
 
   public UserResponse updateUser(UserRequest userRequest) {

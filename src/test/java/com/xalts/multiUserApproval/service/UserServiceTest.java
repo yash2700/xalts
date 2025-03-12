@@ -39,6 +39,10 @@ public class UserServiceTest {
   UserRepository userRepository;
   @Mock
   BCryptPasswordEncoder passwordEncoder;
+  @Mock
+  TaskApprovalService taskApprovalService;
+  @Mock
+  TaskQueryService taskService;
 
   // Successfully creates a new user when email doesn't exist
   @Test
@@ -393,9 +397,7 @@ public class UserServiceTest {
         .password("encoded_password")
         .build();
 
-    UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
-
-    Mockito.when(mockUserRepository.findById(userId)).thenReturn(Optional.of(mockUser));
+    Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
 
     // Act
     UserResponse response = userService.getUserById(userId);
@@ -411,10 +413,7 @@ public class UserServiceTest {
   public void test_get_user_by_id_throws_exception_when_user_not_found() {
     // Arrange
     Long nonExistentUserId = 999L;
-
-    UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
-
-    Mockito.when(mockUserRepository.findById(nonExistentUserId)).thenReturn(Optional.empty());
+    Mockito.when(userRepository.findById(nonExistentUserId)).thenReturn(Optional.empty());
 
     // Act & Assert
     RuntimeException exception = assertThrows(RuntimeException.class, () -> {
@@ -509,8 +508,6 @@ public class UserServiceTest {
   // Returns a list of all users when database contains users
   @Test
   public void test_get_all_users_returns_user_list() {
-    // Arrange
-
     List<User> userList = Arrays.asList(
         User.builder().id(1L).name("John Doe").email("john@example.com").build(),
         User.builder().id(2L).name("Jane Smith").email("jane@example.com").build()

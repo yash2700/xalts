@@ -152,7 +152,7 @@ public class TaskService {
         .approvedEmails(task.getApprovals().stream()
             .filter(i -> i.getStatus() == TaskStatus.APPROVED)
             .map(ta -> ta.getApprovedBy().getEmail())
-            .toList())
+            .collect(Collectors.toList()))
         .build();
   }
 
