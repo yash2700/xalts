@@ -41,14 +41,13 @@ public class SecurityFilterChainConfig {
                 }
             )
         )
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .sessionManagement(session ->
+            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
     return http.build();
   }
-
-
 
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
